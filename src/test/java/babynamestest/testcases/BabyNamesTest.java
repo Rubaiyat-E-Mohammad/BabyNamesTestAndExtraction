@@ -1,20 +1,15 @@
 package babynamestest.testcases;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedReader;
-import java.io.FileReader;
-
+import babynamestest.base.Base;
+import com.opencsv.CSVWriter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import babynamestest.base.Base;
-
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class BabyNamesTest extends Base {
 
@@ -35,338 +30,128 @@ public class BabyNamesTest extends Base {
     }
 
     @Test(priority = 1)
-    public void AccessProfileTest() throws InterruptedException, IOException {
+    public void AccessLinkTest() throws InterruptedException, IOException {
 
         Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id=\"session_key\"]")).sendKeys(prop.getProperty("email"));
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id=\"session_password\"]")).sendKeys(prop.getProperty("pass"));
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//button[@type='submit']")).click();
-        Thread.sleep(2000);
 
-        String filePath, profileLink;
+        String Link = "https://adoption.com/baby-names/browse/";
 
-        String Path = "/Users/rubaiyatemohammad/work/LegoIO/rubaiyat-linkedin-test/";
-        String Link = "https://www.linkedin.com/in/";
-
-        String[] pathname = {"JonathanNorori.json", "ChrisHayen.json", "DanCostinett.json", "TomBatzold.json"};
-        String[] pathlink = {"norori/", "chris-hayen-1842036b/", "dan-costinett/","tom-batzold-02a78728/"};
-
-
-//
-
-        for(int i=0; i<pathname.length; i++){
-            System.out.println(pathname[i]);
-            filePath = Path + pathname[i];
-            profileLink = Link + pathlink[i];
-            // Read and process each profile
-            profileInfo(filePath, profileLink);
-        }
-
-    }
-
-    private void profileInfo(String filePath, String profileLink) throws InterruptedException, IOException {
-
-        driver.get(profileLink);
-        Thread.sleep(2000);
-
-        File file = new File(filePath);
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write("{" + "\n");
-
-        try{
-            Thread.sleep(3000);
-            String name = driver.findElement(By.xpath("//h1[@class='text-heading-xlarge inline t-24 v-align-middle break-words']")).getText();
-            Thread.sleep(2000);
-            bw.write(" \"Name\" : " + "\"" + name + "\"," + "\n");
-        }catch (Exception e){
-            System.out.println("Name Not Found");
-        }
-
-        try{
-            Thread.sleep(2000);
-            String bio = driver.findElement(By.xpath("//div[@class='text-body-medium break-words']")).getText();
-            bw.write(" \"Bio\" : " + "\"" + bio + "\"," + "\n");
-        }catch (Exception e){
-            System.out.println("Bio Not Found");
-        }
-
-        try{
-            Thread.sleep(2000);
-            String location = driver.findElement(By.xpath("//span[@class='text-body-small inline t-black--light break-words']")).getText();
-            bw.write(" \"Location\" : " + "\"" + location + "\"," + "\n");
-        }catch (Exception e){
-            System.out.println("Location Not Found");
-        }
-
-        try{
-            Thread.sleep(2000);
-            String presentCompany = driver.findElement(By.xpath("//ul[@class='pv-text-details__right-panel']//li[1]")).getText();
-            bw.write(" \"Present Company\" : " + "\"" + presentCompany + "\"," + "\n");
-        }catch (Exception e){
-            System.out.println("Company Not Found");
-        }
-
-        try{
-            Thread.sleep(2000);
-            String Heducation = driver.findElement(By.xpath("//ul[@class='pv-text-details__right-panel']//li[2]")).getText();
-            bw.write(" \"Highest Education\" : " + "\"" + Heducation + "\"," + "\n");
-        }catch (Exception e){
-            System.out.println("Education Not Found");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[2]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[3]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[4]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[5]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[6]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[7]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[8]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[9]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[10]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[11]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        try {
-            Thread.sleep(2000);
-            String info = driver.findElement(By.xpath("//section[12]")).getText();
-            writeInfo(info, bw);
-        } catch (Exception e) {
-            System.out.println("No Info");
-        }
-
-        bw.write("}");
-        bw.close();
-
-        try {
-            StringBuilder content = new StringBuilder();
-            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    content.append(line).append("\n");
+        String[] pagelink = {"A", "B", "C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+        String filePath = "/Users/rubaiyatemohammad/work/LegoIO/babynames-test/names.csv";
+        CSVWriter writer = new CSVWriter(new FileWriter(filePath));
+        String[] header = {"Name", "Meaning", "Gender", "Origin", "Similar"};
+        writer.writeNext(header);
+        for (String s : pagelink) {
+            String newlink = Link + s + "?page=";
+            for (int j = 1; j <= 179; j++) {
+                if (s == "A" && j <= 179){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "B" && j <= 79){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "C" && j <= 68){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "D" && j <= 77){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "E" && j <= 41){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "F" && j <= 30){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "G" && j <= 51){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "H" && j <= 55){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "I" && j <= 26){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "J" && j <= 53){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "K" && j <= 77){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "L" && j <= 44){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "M" && j <= 100){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "N" && j <= 59){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "O" && j <= 18){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "P" && j <= 59){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "Q" && j <= 6){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "R" && j <= 67){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "S" && j <= 154){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "T" && j <= 58){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "U" && j <= 19){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "V" && j <= 47){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "W" && j <= 18){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "X" && j <= 3){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "Y" && j <= 19){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
+                }else if(s == "Z" && j <= 16){
+                    String createdlink = newlink + j;
+                    ExtractData(createdlink, j, writer);
                 }
             }
-            content.deleteCharAt(content.length() - 3);
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-                writer.write(content.toString());
-            }
-        } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
+            System.out.println("Text has been written to the file successfully.");
         }
 
-        System.out.println("Text has been written to the file successfully.");
+        writer.close();
 
     }
 
-    private void writeInfo(String info, BufferedWriter bw) throws IOException {
-        if(info.startsWith("About")){
-            info = removeDuplicatesFromString(info);
-            info = info.replaceAll("About ", "");
-            bw.write(" \"About\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Experience")) {
+    private void ExtractData(String link, int count, CSVWriter writer) {
 
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//a[@id='navigation-index-see-all-experiences']")).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//div[@class='pvs-list__container'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
+        try{
+            driver.get(link);
+            Thread.sleep(2000);
+            String[] rowdata = new String[5];
+            for (int i= 1; i<65; i++){
+                String path = "/html/body/div/main/div[4]/div[2]/div/table/tbody/tr[" + i + "]" +"/td";
+                if(i != 18 && i != 35 && i != 52){
+                    for (int j = 1; j<6; j++){
+                        String newpath = path + "[" + j + "]";
+                        String text = driver.findElement(By.xpath(newpath)).getText();
+//                        Thread.sleep(50);
+                        rowdata[j-1] = text;
+                    }
+                    writer.writeNext(rowdata);
+                }
             }
-            info = info.replaceAll("Experience ", "");
-            bw.write(" \"Experience\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Education")) {
-
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//a[@id='navigation-index-see-all-education']")).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//div[@class='pvs-list__container'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
-            }
-            info = info.replaceAll("Education ", "");
-            bw.write(" \"Education\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Skills")) {
-            int originalLength = info.length();
-            String makeid = info.substring(originalLength - 9);
-            makeid = makeid.replaceAll(" ", "-");
-            makeid = "navigation-index-Show-all-" + makeid;
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.id(makeid)).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//section[@class='artdeco-card pb3'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
-            }
-            info = info.replaceAll("Skills ", "");
-            info = info.replaceAll("All ", "");
-            info = info.replaceAll("Industry Knowledge ", "");
-            info = info.replaceAll("Tools & Technologies ", "");
-            info = info.replaceAll("Interpersonal Skills ", "");
-            info = info.replaceAll("Interpersonal", "");
-            info = info.replaceAll("Other", "");
-            info = info.replaceAll("Other Skills ", "");
-            info = info.replaceAll("Show more results", "");
-
-            bw.write(" \"Skills\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Licenses & certifications")) {
-
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//a[@id='navigation-index-see-all-licenses-and-certifications']")).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//div[@class='pvs-list__container'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
-            }
-            info = info.replaceAll("Licenses & certifications ", "");
-            bw.write(" \"Licenses & certifications\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Honors & awards")) {
-
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//a[@id='navigation-index-see-all-honors-and-awards']")).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//div[@class='pvs-list__container'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
-            }
-            info = info.replaceAll("Honors & awards ", "");
-            bw.write(" \"Honors & awards\" : " + "\"" + info + "\"," + "\n");
-        } else if (info.startsWith("Courses")) {
-
-            try{
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//a[@id='navigation-index-see-all-courses']")).click();
-                Thread.sleep(2000);
-                info = driver.findElement(By.xpath("//div[@class='pvs-list__container'][1]")).getText();
-                Thread.sleep(2000);
-                info = removeDuplicatesFromString(info);
-                Thread.sleep(2000);
-                driver.findElement(By.xpath("//button[@aria-label='Back to the main profile page']")).click();
-                Thread.sleep(2000);
-            }catch(Exception e){
-                info = removeDuplicatesFromString(info);
-            }
-            info = info.replaceAll("Courses ", "");
-            bw.write(" \"Courses\" : " + "\"" + info + "\"," + "\n");
+        }catch (Exception e){
+            System.out.println(count);
         }
+
     }
-
-    private static String removeDuplicatesFromString(String str) {
-        String[] lines = str.split("\n");
-        StringBuilder uniqueString = new StringBuilder();
-
-        String prevLine = null;
-        for (String line : lines) {
-            if (!line.equals(prevLine)) {
-                uniqueString.append(line).append(" ");
-            }
-            prevLine = line;
-        }
-        String replaceLine = uniqueString.toString().trim();
-        String output = replaceLine.replaceAll("\n", "");
-        output = output.replaceAll("...see more", "");
-        output = output.replaceAll("Show credential", "");
-        return output;
-    }
-
 }

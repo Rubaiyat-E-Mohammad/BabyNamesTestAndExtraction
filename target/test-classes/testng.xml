@@ -3,11 +3,11 @@
 <suite name="Suite">
 	
 	<listeners>
-		<listener class-name="ccv1.listeners.MyListeners" />
+		<listener class-name="babynamestest.listeners.MyListeners" />
 	</listeners>
   <test thread-count="5" name="Test">
     <classes>
-      <class name="ccv1.testcases.LinkedinProfileTest"/>
+      <class name="babynamestest.testcases.BabyNamesTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

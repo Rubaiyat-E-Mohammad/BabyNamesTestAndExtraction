@@ -7,7 +7,7 @@
 	</listeners>
   <test thread-count="5" name="Test">
     <classes>
-      <class name="babynamestest.testcases.LinkedinProfileTest"/>
+      <class name="babynamestest.testcases.BabyNamesTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
